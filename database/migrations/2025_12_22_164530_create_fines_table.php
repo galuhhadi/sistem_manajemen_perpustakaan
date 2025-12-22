@@ -9,13 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('fines', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+public function up()
+{
+    Schema::create('fines', function (Blueprint $table) {
+        $table->id();
+
+        // Relasi ke Borrowings
+        $table->foreignId('borrowing_id')->constrained('borrowings')->cascadeOnDelete();
+
+        $table->decimal('amount', 10, 2); // Jumlah denda
+        $table->enum('status', ['unpaid', 'paid'])->default('unpaid');
+        $table->timestamp('paid_at')->nullable();
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.
