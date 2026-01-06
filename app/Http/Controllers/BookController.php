@@ -1,3 +1,4 @@
+<?php
 
 use App\Models\Book;
 use Illuminate\Http\Request;
